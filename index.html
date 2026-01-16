@@ -129,19 +129,22 @@
         .skill-tag {
             display: inline-flex;
             align-items: center;
-            padding: 6px 12px;
+            justify-content: center;
+            padding: 12px 20px;
             background: rgba(168, 85, 247, 0.1);
             border: 1px solid rgba(168, 85, 247, 0.2);
-            border-radius: 20px;
-            font-size: 13px;
+            border-radius: 24px;
+            font-size: 15px;
             font-weight: 500;
             color: #e879f9;
             transition: all 0.3s ease;
+            min-height: 48px;
         }
 
         .skill-tag:hover {
             background: rgba(168, 85, 247, 0.15);
-            transform: translateY(-1px);
+            transform: translateY(-2px);
+            border-color: rgba(168, 85, 247, 0.4);
         }
 
         .work-item {
@@ -262,7 +265,7 @@
     <nav class="fixed top-0 w-full z-50 py-6 fade-in">
         <div class="max-w-7xl mx-auto px-6 lg:px-8">
             <div class="flex justify-between items-center">
-                <div class="text-xl font-semibold tracking-tight text-gradient">
+                <div class="text-xl font-semibold tracking-tight accent-gradient bg-clip-text text-transparent">
                     ASAKAWA KAEDE
                 </div>
                 <div class="hidden md:flex items-center gap-8">
@@ -371,11 +374,13 @@
 
             <div class="glass-card p-8 hover-lift">
                 <h3 class="text-2xl font-semibold mb-6 text-gradient">Focus Areas</h3>
-                <div class="flex flex-wrap gap-4">
-                    <span class="skill-tag">dynamic range</span>
-                    <span class="skill-tag">instrument separation</span>
-                    <span class="skill-tag">emotional movement</span>
-                    <span class="skill-tag">spatial balance</span>
+                <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
+                    <span class="skill-tag">High Dynamic Range</span>
+                    <span class="skill-tag">Instrument Separation</span>
+                    <span class="skill-tag">Emotional Movement</span>
+                    <span class="skill-tag">Spatial Balance</span>
+                    <span class="skill-tag">Realistic Sound Field</span>
+                    <span class="skill-tag">Natural Voices</span>
                 </div>
             </div>
         </div>
@@ -384,16 +389,22 @@
             <h3 class="text-3xl font-bold mb-8 text-gradient">What I'm Aiming For</h3>
             <div class="personal-quote">
                 <p class="text-xl leading-relaxed opacity-95 font-medium">
-                    <br>My goal is simple: To make the listening experience feel like it has stepped into another dimension.
+                    <br>My goal is simple: <br>To make the listening experience feel like it has stepped into <span class="font-semibold accent-gradient bg-clip-text text-transparent">another dimension</span>.
                 </p>
             </div>
             <div class="mt-8 space-y-6">
-                <p class="text-lg leading-relaxed opacity-90">
-                    Not louder. Not wider just for the sake of it. But more immersive, more alive, and more emotionally detailed than stereo.
-                </p>
-                <p class="text-base leading-relaxed opacity-80 italic">
-                    I want listeners to notice small things — a breath, a movement, a change in distance — and feel that something is different, even if they can't explain why.
-                </p>
+                <div class="flex items-start gap-4">
+                    <div class="w-2 h-2 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 mt-2.5 flex-shrink-0"></div>
+                    <p class="text-lg leading-relaxed opacity-90 flex-1">
+                        Not louder. Not wider just for the sake of it. <br>But <span class="font-semibold text-purple-300">more immersive</span>, <span class="font-semibold text-purple-300">more alive</span>, and <span class="font-semibold text-purple-300">more emotionally detailed</span> than stereo.
+                    </p>
+                </div>
+                <div class="flex items-start gap-4">
+                    <div class="w-2 h-2 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 mt-2.5 flex-shrink-0"></div>
+                    <p class="text-base leading-relaxed opacity-80 italic flex-1">
+                        I want listeners to notice <span class="font-semibold not-italic text-purple-300">small things</span> — a breath, a movement, a change in distance — <br>and feel that something is different, even if they can't explain why.
+                    </p>
+                </div>
             </div>
         </div>
     </section>
