@@ -7,22 +7,50 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Bai+Jamjuree:wght@300;400;500;600;700&family=Orbitron:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
     <style>
-        * {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+        :root {
+            --parallax-factor: 0.1; /* Adjust this value for stronger/weaker parallax */
+            --color-primary-accent: #00eaff; /* Electric Blue */
+            --color-secondary-accent: #00b8d4; /* Cyan */
+            --color-contrast-accent: #39ff14; /* Bright Lime Green */
+            --color-text-light: #e0e7eb; /* Off-white */
+            --color-text-muted: #aab8c2; /* Light gray */
+        }
+        body {
+            font-family: 'Bai Jamjuree', sans-serif;
+        }
+
+        h1, h2, h3 {
+            font-family: 'Orbitron', sans-serif;
         }
 
         body {
+            position: relative;
             background: linear-gradient(135deg, #0a0b0f 0%, #111827 50%, #1e293b 100%);
-            color: #f1f5f9;
+            color: var(--color-text-light);
+            overflow-x: hidden; /* Ensure no horizontal scrollbar due to noise */
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzAwIiBoZWlnaHQ9IjMwMCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZmllbHRlcjogaWQ9Im4iPjxmZSAyZD0iNjAiIGZpbHRlckFjPSJzKzEiIHR5cGU9Im5vaXNlIi8+PC9maWx0ZXI+PGZpbHRlciBpZD0iYSI+PGZlIDJkPSIyIiBmaWx0ZXJBc2FhdHVyYXRpb249IjAiIHR5cGU9Im5vaXNlIi8+PC9maWx0ZXI+PHJlY3Qgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgZmlsbD0iIzFmMTcxYyIvPjxyZWN0IHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIGZpbGw9InVybCgjYykiIG9wYWNpdHk9IjAuMSIvPjxyZWN0IHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIGZpbGw9ImJsYWNrIiBvcGFjaXR5PSIwLjA1Ii8+PC9zdmc+') repeat;
+            opacity: 0.1;
+            pointer-events: none;
+            z-index: -1;
         }
 
         .spatial-circle {
-            position: absolute;
+            position: fixed;
             border: 1px solid rgba(168, 85, 247, 0.1);
             border-radius: 50%;
             pointer-events: none;
+            will-change: transform; /* Optimize for parallax animation */
         }
 
         .spatial-dot {
@@ -30,7 +58,8 @@
             height: 3px;
             background: rgba(168, 85, 247, 0.4);
             border-radius: 50%;
-            position: absolute;
+            position: fixed; /* Changed to fixed for parallax */
+            will-change: transform; /* Optimize for parallax animation */
         }
 
         .breathing {
@@ -70,14 +99,14 @@
         }
 
         .text-gradient {
-            background: linear-gradient(135deg, #f1f5f9 0%, #cbd5e1 100%);
+            background: linear-gradient(135deg, var(--color-text-light) 0%, var(--color-text-muted) 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
         }
 
         .accent-gradient {
-            background: linear-gradient(135deg, #a855f7 0%, #ec4899 100%);
+            background: linear-gradient(135deg, var(--color-primary-accent) 0%, var(--color-secondary-accent) 100%);
         }
 
         .glass-card {
@@ -91,7 +120,7 @@
             height: 1px;
             background: linear-gradient(90deg,
                 transparent 0%,
-                rgba(168, 85, 247, 0.2) 50%,
+                var(--color-primary-accent) 50%,
                 transparent 100%);
             margin: 100px auto;
             max-width: 400px;
@@ -100,7 +129,7 @@
         .accent-line {
             width: 80px;
             height: 2px;
-            background: linear-gradient(90deg, #a855f7 0%, #ec4899 100%);
+            background: linear-gradient(90deg, var(--color-primary-accent) 0%, var(--color-secondary-accent) 100%);
             margin: 0 auto 48px;
             border-radius: 1px;
         }
@@ -109,8 +138,8 @@
             position: relative;
             padding: 40px 48px;
             margin: 0;
-            background: linear-gradient(135deg, rgba(168, 85, 247, 0.05) 0%, rgba(236, 72, 153, 0.05) 100%);
-            border-left: 3px solid #a855f7;
+            background: linear-gradient(135deg, rgba(var(--color-primary-accent), 0.05) 0%, rgba(var(--color-secondary-accent), 0.05) 100%);
+            border-left: 3px solid var(--color-primary-accent);
             border-radius: 0 12px 12px 0;
         }
 
@@ -120,7 +149,7 @@
             top: 32px;
             left: 32px;
             font-size: 80px;
-            color: rgba(168, 85, 247, 0.35);
+            color: rgba(var(--color-primary-accent), 0.35);
             font-family: Georgia, serif;
             font-weight: 300;
             line-height: 1;
@@ -131,20 +160,20 @@
             align-items: center;
             justify-content: center;
             padding: 12px 20px;
-            background: rgba(168, 85, 247, 0.1);
-            border: 1px solid rgba(168, 85, 247, 0.2);
+            background: rgba(var(--color-primary-accent), 0.1);
+            border: 1px solid rgba(var(--color-primary-accent), 0.2);
             border-radius: 24px;
             font-size: 15px;
             font-weight: 500;
-            color: #e879f9;
+            color: var(--color-primary-accent); /* Using primary accent for skill tags */
             transition: all 0.3s ease;
             min-height: 48px;
         }
 
         .skill-tag:hover {
-            background: rgba(168, 85, 247, 0.15);
+            background: rgba(var(--color-primary-accent), 0.15);
             transform: translateY(-2px);
-            border-color: rgba(168, 85, 247, 0.4);
+            border-color: rgba(var(--color-primary-accent), 0.4);
         }
 
         .work-item {
@@ -164,7 +193,7 @@
             left: -100%;
             width: 100%;
             height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(168, 85, 247, 0.1), transparent);
+            background: linear-gradient(90deg, transparent, rgba(var(--color-primary-accent), 0.1), transparent);
             transition: left 0.6s ease;
         }
 
@@ -174,9 +203,9 @@
 
         .work-item:hover {
             background: rgba(255, 255, 255, 0.05);
-            border-color: rgba(168, 85, 247, 0.3);
+            border-color: rgba(var(--color-primary-accent), 0.3);
             transform: translateY(-2px);
-            box-shadow: 0 8px 32px rgba(168, 85, 247, 0.15);
+            box-shadow: 0 8px 32px rgba(var(--color-primary-accent), 0.15);
         }
 
         .contact-link {
@@ -184,20 +213,20 @@
             align-items: center;
             gap: 8px;
             padding: 12px 24px;
-            background: linear-gradient(135deg, rgba(168, 85, 247, 0.1) 0%, rgba(236, 72, 153, 0.1) 100%);
-            border: 1px solid rgba(168, 85, 247, 0.2);
+            background: linear-gradient(135deg, rgba(var(--color-primary-accent), 0.1) 0%, rgba(var(--color-secondary-accent), 0.1) 100%);
+            border: 1px solid rgba(var(--color-primary-accent), 0.2);
             border-radius: 12px;
             text-decoration: none;
-            color: #f1f5f9;
+            color: var(--color-text-light);
             font-weight: 500;
             transition: all 0.3s ease;
         }
 
         .contact-link:hover {
-            background: linear-gradient(135deg, rgba(168, 85, 247, 0.2) 0%, rgba(236, 72, 153, 0.2) 100%);
-            border-color: rgba(168, 85, 247, 0.4);
+            background: linear-gradient(135deg, rgba(var(--color-primary-accent), 0.2) 0%, rgba(var(--color-secondary-accent), 0.2) 100%);
+            border-color: rgba(var(--color-primary-accent), 0.4);
             transform: translateY(-2px);
-            box-shadow: 0 4px 20px rgba(168, 85, 247, 0.2);
+            box-shadow: 0 4px 20px rgba(var(--color-primary-accent), 0.2);
         }
 
         .scroll-indicator {
@@ -207,7 +236,7 @@
             transform: translateX(-50%);
             width: 24px;
             height: 40px;
-            border: 2px solid rgba(168, 85, 247, 0.3);
+            border: 2px solid rgba(var(--color-primary-accent), 0.3);
             border-radius: 12px;
             z-index: 10;
             opacity: 0.7;
@@ -228,7 +257,7 @@
             transform: translateX(-50%);
             width: 2px;
             height: 8px;
-            background: #a855f7;
+            background: var(--color-primary-accent);
             border-radius: 1px;
             animation: scrollBounce 2s infinite;
         }
@@ -269,21 +298,21 @@
                     ASAKAWA KAEDE
                 </div>
                 <div class="hidden md:flex items-center gap-8">
-                    <a href="#about" class="text-sm font-medium opacity-80 hover:opacity-100 transition-all duration-300 hover:text-purple-400 relative group">
+                    <a href="#about" class="text-sm font-medium opacity-80 hover:opacity-100 transition-all duration-300 hover:text-[var(--color-primary-accent)] relative group">
                         About
-                        <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-to-r from-purple-400 to-pink-400 transition-all duration-300 group-hover:w-full"></span>
+                        <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-to-r from-blue-400 to-cyan-400 transition-all duration-300 group-hover:w-full"></span>
                     </a>
-                    <a href="#work" class="text-sm font-medium opacity-80 hover:opacity-100 transition-all duration-300 hover:text-purple-400 relative group">
+                    <a href="#work" class="text-sm font-medium opacity-80 hover:opacity-100 transition-all duration-300 hover:text-[var(--color-primary-accent)] relative group">
                         Work
-                        <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-to-r from-purple-400 to-pink-400 transition-all duration-300 group-hover:w-full"></span>
+                        <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-to-r from-blue-400 to-cyan-400 transition-all duration-300 group-hover:w-full"></span>
                     </a>
-                    <a href="#commission" class="text-sm font-medium opacity-80 hover:opacity-100 transition-all duration-300 hover:text-purple-400 relative group">
+                    <a href="#commission" class="text-sm font-medium opacity-80 hover:opacity-100 transition-all duration-300 hover:text-[var(--color-primary-accent)] relative group">
                         Commission
-                        <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-to-r from-purple-400 to-pink-400 transition-all duration-300 group-hover:w-full"></span>
+                        <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-to-r from-blue-400 to-cyan-400 transition-all duration-300 group-hover:w-full"></span>
                     </a>
-                    <a href="#contact" class="text-sm font-medium opacity-80 hover:opacity-100 transition-all duration-300 hover:text-purple-400 relative group">
+                    <a href="#contact" class="text-sm font-medium opacity-80 hover:opacity-100 transition-all duration-300 hover:text-[var(--color-primary-accent)] relative group">
                         Contact
-                        <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-to-r from-purple-400 to-pink-400 transition-all duration-300 group-hover:w-full"></span>
+                        <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-to-r from-blue-400 to-cyan-400 transition-all duration-300 group-hover:w-full"></span>
                     </a>
                 </div>
             </div>
@@ -340,23 +369,23 @@
                 <h3 class="text-2xl font-semibold mb-6 text-gradient">My Workflow</h3>
                 <div class="space-y-6">
                     <div class="flex items-start gap-4">
-                        <div class="w-3 h-3 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 mt-2 flex-shrink-0"></div>
+                        <div class="w-3 h-3 rounded-full bg-gradient-to-r from-blue-400 to-cyan-400 mt-2 flex-shrink-0"></div>
                         <div>
-                            <span class="font-semibold text-purple-300">DAW:</span>
+                            <span class="font-semibold text-blue-300">DAW:</span>
                             <span class="ml-2 opacity-90">Logic Pro & Adobe Audition</span>
                         </div>
                     </div>
                     <div class="flex items-start gap-4">
-                        <div class="w-3 h-3 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 mt-2 flex-shrink-0"></div>
+                        <div class="w-3 h-3 rounded-full bg-gradient-to-r from-blue-400 to-cyan-400 mt-2 flex-shrink-0"></div>
                         <div>
-                            <span class="font-semibold text-purple-300">Monitoring:</span>
+                            <span class="font-semibold text-[var(--color-primary-accent)]">Monitoring:</span>
                             <span class="ml-2 opacity-90">AirPods Pro (2nd generation)</span>
                         </div>
                     </div>
                     <div class="flex items-start gap-4">
-                        <div class="w-3 h-3 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 mt-2 flex-shrink-0"></div>
+                        <div class="w-3 h-3 rounded-full bg-gradient-to-r from-blue-400 to-cyan-400 mt-2 flex-shrink-0"></div>
                         <div>
-                            <span class="font-semibold text-purple-300">Renderer:</span>
+                            <span class="font-semibold text-[var(--color-primary-accent)]">Renderer:</span>
                             <span class="ml-2 opacity-90">Apple Spatial Audio / Head Tracking</span>
                         </div>
                     </div>
@@ -368,7 +397,7 @@
 
             <div class="personal-quote flex items-center">
                 <p class="text-2xl md:text-3xl leading-tight opacity-95 w-full font-light">
-                    I care deeply about how sound <em class="font-semibold not-italic text-purple-300">feels</em>, not just how it measures.
+                    I care deeply about how sound <em class="font-semibold not-italic text-[var(--color-primary-accent)]">feels</em>, not just how it measures.
                 </p>
             </div>
 
@@ -394,15 +423,15 @@
             </div>
             <div class="mt-8 space-y-6">
                 <div class="flex items-start gap-4">
-                    <div class="w-2 h-2 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 mt-2.5 flex-shrink-0"></div>
+                    <div class="w-2 h-2 rounded-full bg-gradient-to-r from-blue-400 to-cyan-400 mt-2.5 flex-shrink-0"></div>
                     <p class="text-lg leading-relaxed opacity-90 flex-1">
-                        Not louder. Not wider just for the sake of it. <br>But <span class="font-semibold text-purple-300">more immersive</span>, <span class="font-semibold text-purple-300">more alive</span>, and <span class="font-semibold text-purple-300">more emotionally detailed</span> than stereo.
+                        Not louder. Not wider just for the sake of it. <br>But <span class="font-semibold text-[var(--color-primary-accent)]">more immersive</span>, <span class="font-semibold text-[var(--color-primary-accent)]">more alive</span>, and <span class="font-semibold text-[var(--color-primary-accent)]">more emotionally detailed</span> than stereo.
                     </p>
                 </div>
                 <div class="flex items-start gap-4">
-                    <div class="w-2 h-2 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 mt-2.5 flex-shrink-0"></div>
+                    <div class="w-2 h-2 rounded-full bg-gradient-to-r from-blue-400 to-cyan-400 mt-2.5 flex-shrink-0"></div>
                     <p class="text-base leading-relaxed opacity-80 italic flex-1">
-                        I want listeners to notice <span class="font-semibold not-italic text-purple-300">small things</span> — a breath, a movement, a change in distance — <br>and feel that something is different, even if they can't explain why.
+                        I want listeners to notice <span class="font-semibold not-italic text-[var(--color-primary-accent)]">small things</span> — a breath, a movement, a change in distance — <br>and feel that something is different, even if they can't explain why.
                     </p>
                 </div>
             </div>
@@ -431,7 +460,7 @@
                 </div>
                 <div class="flex items-center gap-4">
                     <a href="https://space.bilibili.com/1778408540" target="_blank"
-                       class="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-purple-500 to-pink-500 rounded-lg font-medium hover:from-purple-600 hover:to-pink-600 transition-all duration-300 transform hover:scale-105 hover:shadow-lg">
+                       class="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-blue-500 to-cyan-500 rounded-lg font-medium hover:from-blue-600 hover:to-cyan-600 transition-all duration-300 transform hover:scale-105 hover:shadow-lg">
                         <span>View Works</span>
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path>
@@ -452,7 +481,7 @@
                 </div>
                 <div class="flex items-center gap-4">
                     <a href="https://space.bilibili.com/3546708503956225" target="_blank"
-                       class="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-purple-500 to-pink-500 rounded-lg font-medium hover:from-purple-600 hover:to-pink-600 transition-all duration-300 transform hover:scale-105 hover:shadow-lg">
+                       class="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-blue-500 to-cyan-500 rounded-lg font-medium hover:from-blue-600 hover:to-cyan-600 transition-all duration-300 transform hover:scale-105 hover:shadow-lg">
                         <span>View Works</span>
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path>
@@ -480,7 +509,7 @@
         <div class="grid md:grid-cols-2 gap-8 mb-16">
             <div class="work-item hover-lift">
                 <div class="flex items-center gap-4 mb-6">
-                    <div class="w-12 h-12 rounded-full bg-gradient-to-r from-purple-500 to-pink-500 flex items-center justify-center text-xl font-bold text-white">
+                    <div class="w-12 h-12 rounded-full bg-gradient-to-r from-blue-500 to-cyan-500 flex items-center justify-center text-xl font-bold text-white">
                         1
                     </div>
                     <h3 class="text-xl font-semibold text-gradient">Music Enthusiasts</h3>
@@ -492,7 +521,7 @@
 
             <div class="work-item hover-lift">
                 <div class="flex items-center gap-4 mb-6">
-                    <div class="w-12 h-12 rounded-full bg-gradient-to-r from-purple-500 to-pink-500 flex items-center justify-center text-xl font-bold text-white">
+                    <div class="w-12 h-12 rounded-full bg-gradient-to-r from-blue-500 to-cyan-500 flex items-center justify-center text-xl font-bold text-white">
                         2
                     </div>
                     <h3 class="text-xl font-semibold text-gradient">Independent Musicians</h3>
@@ -505,7 +534,7 @@
 
         <div class="glass-card p-8 hover-lift">
             <div class="flex items-start gap-4 mb-6">
-                <div class="w-8 h-8 rounded-full bg-gradient-to-r from-amber-400 to-orange-500 flex items-center justify-center flex-shrink-0 mt-1">
+                <div class="w-8 h-8 rounded-full bg-gradient-to-r from-lime-400 to-green-500 flex items-center justify-center flex-shrink-0 mt-1">
                     <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L4.082 16.5c-.77.833.192 2.5 1.732 2.5z"></path>
                     </svg>
@@ -515,7 +544,7 @@
                     <p class="text-base leading-relaxed opacity-80 mb-4">
                         I'm not a large commercial studio, and this is a passion-driven practice. Expect experimentation rather than perfection.
                     </p>
-                    <div class="inline-flex items-center gap-3 px-6 py-3 bg-gradient-to-r from-amber-500/20 to-orange-500/20 border border-amber-400/30 rounded-lg">
+                    <div class="inline-flex items-center gap-3 px-6 py-3 bg-gradient-to-r from-lime-500/20 to-green-500/20 border border-lime-400/30 rounded-lg">
                         <span class="text-lg font-bold text-amber-300">$30 USD</span>
                         <span class="text-sm opacity-80">per project</span>
                     </div>
@@ -575,8 +604,8 @@
         </div>
 
         <div class="text-center">
-            <div class="inline-flex items-center gap-2 px-8 py-4 bg-gradient-to-r from-purple-500/10 to-pink-500/10 border border-purple-400/20 rounded-full">
-                <svg class="w-5 h-5 text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <div class="inline-flex items-center gap-2 px-8 py-4 bg-gradient-to-r from-blue-500/10 to-cyan-500/10 border border-blue-400/20 rounded-full">
+                <svg class="w-5 h-5 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"></path>
                 </svg>
                 <span class="text-sm opacity-80">Ready for Your Contact</span>
@@ -630,6 +659,34 @@
         // Hide on touch events (mobile scrolling)
         window.addEventListener('touchmove', function() {
             hideScrollIndicator();
+        });
+
+        // Parallax effect for spatial elements
+        const spatialElements = document.querySelectorAll('.spatial-circle, .spatial-dot');
+        const parallaxFactor = parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--parallax-factor'));
+
+        window.addEventListener('scroll', function() {
+            const scrollY = window.scrollY;
+
+            spatialElements.forEach(element => {
+                const initialTop = parseFloat(element.style.top || '0');
+                const initialLeft = parseFloat(element.style.left || '0');
+                const initialRight = parseFloat(element.style.right || '0');
+                const initialBottom = parseFloat(element.style.bottom || '0');
+
+                let translateY = scrollY * parallaxFactor;
+                let translateX = 0; // Keeping X parallax minimal for now
+
+                // Apply parallax based on initial position (top/bottom, left/right)
+                if (element.style.top) {
+                    // Elements starting from top move down relative to scroll
+                    element.style.transform = `translateY(${translateY}px)`;
+                } else if (element.style.bottom) {
+                    // Elements starting from bottom move up relative to scroll
+                    element.style.transform = `translateY(${-translateY}px)`;
+                }
+                // Add more complex parallax if needed, e.g., based on left/right for horizontal movement
+            });
         });
     </script>
 </body>
